@@ -1,0 +1,86 @@
+# === Logs ===
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# === Node / Package manager ===
+node_modules/
+/.pnp/
+/.pnp.*
+
+# === Build output ===
+dist/
+dist-ssr/
+build/
+out/
+.vite/
+
+# Vite cache and other caches
+.cache/
+
+# === Environment files ===
+# Ignore local env files, but keep example files committed
+.env
+.env.*
+!.env.example
+
+# === TypeScript ===
+*.tsbuildinfo
+
+# === Testing & Coverage ===
+coverage/
+.nyc_output/
+test-results/
+
+# === Editor directories and files ===
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Rider / JetBrains
+.idea/
+
+# === OS generated files ===
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# === Misc ===
+*.tgz
+*.log
+*.sqlite
+*.sqlite3
+
+# Storybook build output (if used)
+storybook-static/
+
+# Husky (keep scripts and README if present)
+.husky/*
+!/.husky/README.md
+
+# Keep lockfiles in source control
+# - package-lock.json
+# - yarn.lock
+# - pnpm-lock.yaml
+
+# VS Code workspace or local files that are often machine-specific
+*.code-workspace
+
+# Optional: ignore dist for other frameworks if present
+.next/
+.nuxt/
