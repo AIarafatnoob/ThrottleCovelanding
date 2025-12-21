@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react';
 import emresTC from './Assets/emresTC.jpg';
 import emres from './Assets/Features/EmergecyResponse.jpg'
-import motomed from './Assets/Features/Motomedic.jpg';
+import motomed from './Assets/Features/MotoMedic.jpg';
 import garagevid from './Assets/Features/TCgaragemock.mp4'
 import { Smartphone, Wrench, FileCheck, ShoppingBag, ShieldAlert, BellRing, UserCircle, PlusCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
