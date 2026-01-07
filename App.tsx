@@ -63,7 +63,7 @@ function App() {
           >
             <div className="flex items-center gap-2 md:gap-3 pointer-events-auto">
               <div className="shadow-2xl rounded-full overflow-hidden">
-                <GarageDoorCta className="w-[160px] sm:w-[200px] h-10" />
+                <GarageDoorCta className="w-[180px] sm:w-[220px] h-10" />
               </div>
               <ShareButton
                 isFloating={false}
