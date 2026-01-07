@@ -3,12 +3,12 @@ import emresTC from './Assets/emresTC.jpg';
 import emres from './Assets/Features/EmergecyResponse.jpg'
 import motomed from './Assets/Features/MotoMedic.jpg';
 import garagevid from './Assets/Features/Mocks/M1.mp4'
-import remindersvid from './Assets/Features/Mocks/Smart reminders.mp4'
+import remindersvid from './Assets/Features/Mocks/smart-reminders.mp4'
 import sosvid from './Assets/Features/Mocks/SOS.mp4';
-import vaultvid from './Assets/Features/Mocks/quick access.mp4';
+import vaultvid from './Assets/Features/Mocks/quick-access.mp4';
 import resaleCert from './Assets/Features/resale cirtificate.png';
 import storeImg from './Assets/Features/Store.png';
-import profilevid from './Assets/Features/Mocks/rider rank.mp4';
+import profilevid from './Assets/Features/Mocks/rider-rank.mp4';
 import { Smartphone, Wrench, FileCheck, ShoppingBag, ShieldAlert, BellRing, UserCircle, PlusCircle, ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
