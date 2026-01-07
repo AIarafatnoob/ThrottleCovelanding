@@ -14,15 +14,27 @@ function App() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show button after 700px of scroll
-      if (window.scrollY > 700) {
-        setShowStickyCta(true);
+      const heroCta = document.getElementById('hero-cta-container');
+
+      if (heroCta) {
+        const rect = heroCta.getBoundingClientRect();
+        // Show if button has scrolled past the top of the viewport
+        if (rect.bottom < 0) {
+          setShowStickyCta(true);
+        } else {
+          setShowStickyCta(false);
+        }
       } else {
-        setShowStickyCta(false);
+        // Fallback
+        if (window.scrollY > 400) {
+          setShowStickyCta(true);
+        } else {
+          setShowStickyCta(false);
+        }
       }
     };
 
-    // Trigger immediately in case we load already scrolled down
+    // Trigger immediately
     handleScroll();
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -51,11 +63,11 @@ function App() {
           >
             <div className="flex items-center gap-2 md:gap-3 pointer-events-auto">
               <div className="shadow-2xl rounded-full overflow-hidden">
-                <GarageDoorCta className="w-[230px] sm:w-[300px] h-12 md:h-14" />
+                <GarageDoorCta className="w-[160px] sm:w-[200px] h-10" />
               </div>
               <ShareButton
                 isFloating={false}
-                className="w-12 h-12 md:w-14 md:h-14"
+                className="w-10 h-10"
               />
             </div>
           </motion.div>

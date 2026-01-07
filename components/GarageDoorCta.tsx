@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ArrowRight, Box, Check, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
+import ThankYouModal from './ThankYouModal';
 
 interface GarageDoorCtaProps {
   className?: string;
@@ -11,6 +12,7 @@ interface GarageDoorCtaProps {
 const GarageDoorCta: React.FC<GarageDoorCtaProps> = ({ className = "", enableScrollClose = false }) => {
   const { t } = useLanguage();
   const [isGarageOpen, setIsGarageOpen] = useState(false);
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [email, setEmail] = useState('');
   const [formState, setFormState] = useState<'idle' | 'submitting' | 'success'>('idle');
   const garageRef = useRef<HTMLDivElement>(null);
@@ -53,66 +55,74 @@ const GarageDoorCta: React.FC<GarageDoorCtaProps> = ({ className = "", enableScr
         setIsGarageOpen(false);
         setFormState('idle');
         setEmail('');
-      }, 2000);
+        setShowThankYouModal(true);
+      }, 1000);
     }, 1500);
   };
 
   return (
-    <div
-      ref={garageRef}
-      className={`relative rounded-full overflow-hidden shadow-[0_0_20px_rgba(255,68,56,0.3)] group/garage border border-[#FF4438] bg-[#0a0a0a] ${className}`}
-    >
-
-      {/* Interior (Input Form) */}
-      <form
-        onSubmit={handleSubmit}
-        className="relative w-full h-full flex items-center justify-between pl-5 pr-2"
+    <>
+      <div
+        ref={garageRef}
+        className={`relative rounded-full overflow-hidden shadow-[0_0_20px_rgba(255,68,56,0.3)] group/garage border border-[#FF4438] bg-[#0a0a0a] ${className}`}
       >
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder={formState === 'success' ? t('cta.success') : t('cta.placeholder')}
-          className="flex-1 bg-transparent border-none outline-none text-white text-sm font-medium placeholder-gray-500 min-w-0"
-          required
-        />
-        <button
-          type="submit"
-          disabled={formState === 'submitting' || formState === 'success'}
-          className={`h-10 w-10 flex-shrink-0 rounded-full flex items-center justify-center transition-all duration-300 ${formState === 'success' ? 'bg-green-500' : 'bg-[#FF4438] hover:bg-red-600'}`}
+
+        {/* Interior (Input Form) */}
+        <form
+          onSubmit={handleSubmit}
+          className="relative w-full h-full flex items-center justify-between pl-3 pr-1"
         >
-          {formState === 'submitting' ? (
-            <Loader2 size={18} className="animate-spin text-white" />
-          ) : formState === 'success' ? (
-            <Check size={18} className="text-white" />
-          ) : (
-            <ArrowRight size={18} className="text-white" />
-          )}
-        </button>
-      </form>
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder={formState === 'success' ? t('cta.success') : t('cta.placeholder')}
+            className="flex-1 bg-transparent border-none outline-none text-white text-sm font-medium placeholder-gray-400 min-w-0"
+            required
+          />
+          <button
+            type="submit"
+            disabled={formState === 'submitting' || formState === 'success'}
+            className={`h-[calc(100%-8px)] aspect-square flex-shrink-0 rounded-full flex items-center justify-center transition-all duration-300 ${formState === 'success' ? 'bg-green-500' : 'bg-[#FF4438] hover:bg-red-600'}`}
+          >
+            {formState === 'submitting' ? (
+              <Loader2 size={18} className="animate-spin text-white" />
+            ) : formState === 'success' ? (
+              <Check size={18} className="text-white" />
+            ) : (
+              <ArrowRight size={18} className="text-white" />
+            )}
+          </button>
+        </form>
 
-      {/* Exterior (Garage Door) */}
-      <motion.button
-        onClick={() => setIsGarageOpen(true)}
-        initial={{ y: 0 }}
-        animate={{ y: isGarageOpen ? '-100%' : '0%' }}
-        transition={{ type: "spring", stiffness: 50, damping: 15 }}
-        className="absolute inset-0 w-full h-full bg-[#FF4438] flex items-center justify-center gap-3 z-10 cursor-pointer"
-        style={{ backfaceVisibility: 'hidden' }}
-      >
-        {/* Garage Panel Texture (Grooves) */}
-        <div className="absolute inset-0 flex flex-col justify-between py-1 opacity-20 pointer-events-none">
-          <div className="w-full h-[1px] bg-black shadow-sm"></div>
-          <div className="w-full h-[1px] bg-black shadow-sm"></div>
-          <div className="w-full h-[1px] bg-black shadow-sm"></div>
-          <div className="w-full h-[1px] bg-black shadow-sm"></div>
-          <div className="w-full h-[1px] bg-black shadow-sm"></div>
-        </div>
+        {/* Exterior (Garage Door) */}
+        <motion.button
+          onClick={() => setIsGarageOpen(true)}
+          initial={{ y: 0 }}
+          animate={{ y: isGarageOpen ? '-100%' : '0%' }}
+          transition={{ type: "spring", stiffness: 50, damping: 15 }}
+          className="absolute inset-0 w-full h-full bg-[#FF4438] flex items-center justify-center gap-3 z-10 cursor-pointer"
+          style={{ backfaceVisibility: 'hidden' }}
+        >
+          {/* Garage Panel Texture (Grooves) */}
+          <div className="absolute inset-0 flex flex-col justify-between py-1 opacity-20 pointer-events-none">
+            <div className="w-full h-[1px] bg-black shadow-sm"></div>
+            <div className="w-full h-[1px] bg-black shadow-sm"></div>
+            <div className="w-full h-[1px] bg-black shadow-sm"></div>
+            <div className="w-full h-[1px] bg-black shadow-sm"></div>
+            <div className="w-full h-[1px] bg-black shadow-sm"></div>
+          </div>
 
-        <Box size={18} className="text-white relative z-20" />
-        <span className="text-white font-bold uppercase tracking-wide text-xs relative z-20">{t('cta.openGarage')}</span>
-      </motion.button>
-    </div>
+          <Box size={18} className="text-white relative z-20" />
+          <span className="text-white font-bold uppercase tracking-widest text-xs relative z-20">{t('cta.openGarage')}</span>
+        </motion.button>
+      </div>
+
+      <ThankYouModal
+        isOpen={showThankYouModal}
+        onClose={() => setShowThankYouModal(false)}
+      />
+    </>
   );
 };
 

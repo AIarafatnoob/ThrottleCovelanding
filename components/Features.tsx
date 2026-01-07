@@ -2,8 +2,14 @@ import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import emresTC from './Assets/emresTC.jpg';
 import emres from './Assets/Features/EmergecyResponse.jpg'
 import motomed from './Assets/Features/MotoMedic.jpg';
-import garagevid from './Assets/Features/TCgaragemock.mp4'
-import { Smartphone, Wrench, FileCheck, ShoppingBag, ShieldAlert, BellRing, UserCircle, PlusCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import garagevid from './Assets/Features/Mocks/M1.mp4'
+import remindersvid from './Assets/Features/Mocks/Smart reminders.mp4'
+import sosvid from './Assets/Features/Mocks/SOS.mp4';
+import vaultvid from './Assets/Features/Mocks/quick access.mp4';
+import resaleCert from './Assets/Features/resale cirtificate.png';
+import storeImg from './Assets/Features/Store.png';
+import profilevid from './Assets/Features/Mocks/rider rank.mp4';
+import { Smartphone, Wrench, FileCheck, ShoppingBag, ShieldAlert, BellRing, UserCircle, PlusCircle, ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -20,7 +26,7 @@ const Features: React.FC = () => {
       description: t('features.items.vault.description'),
       icon: <Smartphone className="w-5 h-5" />,
       image: emresTC,
-      video: "https://videos.pexels.com/video-files/3192257/3192257-uhd_2560_1440_25fps.mp4"
+      video: vaultvid
     },
     {
       id: 2,
@@ -29,7 +35,9 @@ const Features: React.FC = () => {
       description: t('features.items.motoMedic.description'),
       icon: <Wrench className="w-5 h-5" />,
       image: motomed,
-      video: "https://videos.pexels.com/video-files/4489760/4489760-uhd_2560_1440_25fps.mp4"
+      // Using smart reminders video as placeholder for MotoMedic if specific one isn't available
+      // or keeping it as is but removing external link for safety
+      video: ""
     },
     {
       id: 3,
@@ -37,7 +45,7 @@ const Features: React.FC = () => {
       subtitle: t('features.items.store.subtitle'),
       description: t('features.items.store.description'),
       icon: <ShoppingBag className="w-5 h-5" />,
-      image: "https://images.unsplash.com/photo-1547631776-9d8a59f51528?q=80&w=2000&auto=format&fit=crop",
+      image: storeImg,
     },
     {
       id: 4,
@@ -46,6 +54,7 @@ const Features: React.FC = () => {
       description: t('features.items.sos.description'),
       icon: <ShieldAlert className="w-5 h-5" />,
       image: emres,
+      video: sosvid
     },
     {
       id: 5,
@@ -53,7 +62,7 @@ const Features: React.FC = () => {
       subtitle: t('features.items.resale.subtitle'),
       description: t('features.items.resale.description'),
       icon: <FileCheck className="w-5 h-5" />,
-      image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?q=80&w=2000&auto=format&fit=crop",
+      image: resaleCert,
     },
     {
       id: 7,
@@ -61,7 +70,8 @@ const Features: React.FC = () => {
       subtitle: t('features.items.reminders.subtitle'),
       description: t('features.items.reminders.description'),
       icon: <BellRing className="w-5 h-5" />,
-      image: "https://images.unsplash.com/photo-1632248281081-30c144073352?q=80&w=2000&auto=format&fit=crop",
+      image: motomed, // Reusing local image for poster
+      video: remindersvid
     },
     {
       id: 8,
@@ -69,7 +79,8 @@ const Features: React.FC = () => {
       subtitle: t('features.items.profile.subtitle'),
       description: t('features.items.profile.description'),
       icon: <UserCircle className="w-5 h-5" />,
-      image: "https://images.unsplash.com/photo-1558981806-ec527fa84c3d?q=80&w=2000&auto=format&fit=crop",
+      image: emres, // Reusing local image for poster
+      video: profilevid
     },
     {
       id: 9,
@@ -77,7 +88,7 @@ const Features: React.FC = () => {
       subtitle: t('features.items.garage.subtitle'),
       description: t('features.items.garage.description'),
       icon: <PlusCircle className="w-5 h-5" />,
-      image: "https://images.unsplash.com/photo-1480926965639-9b5f63a0817b?q=80&w=2000&auto=format&fit=crop",
+      image: emresTC, // Reusing local image for poster
       video: garagevid
     }
   ], [t]);
@@ -92,7 +103,7 @@ const Features: React.FC = () => {
 
   useEffect(() => {
     if (isHovered) return;
-    const interval = setInterval(handleNext, 3000);
+    const interval = setInterval(handleNext, 10000);
     return () => clearInterval(interval);
   }, [handleNext, isHovered]);
 
@@ -173,7 +184,7 @@ const Features: React.FC = () => {
                     animate={{
                       opacity: isActive ? 1 : 0.4,
                       scale: isActive ? 1.05 : 0.85,
-                      x: distance * (window.innerWidth < 768 ? 200 : 350),
+                      x: distance * (window.innerWidth < 768 ? 200 : 280),
                       zIndex: isActive ? 30 : 20,
                       filter: isActive ? 'blur(0px)' : 'blur(4px)',
                     }}
@@ -197,13 +208,28 @@ const Features: React.FC = () => {
 
         {/* Progress Indicators */}
         <div className="flex justify-center gap-3 mt-16">
-          {features.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setActiveIndex(idx)}
-              className={`transition-all duration-500 rounded-full h-1.5 ${idx === activeIndex ? 'w-8 bg-[#FF4438]' : 'w-2 bg-white/20 hover:bg-white/40'}`}
-            />
-          ))}
+          {features.map((_, idx) => {
+            const isActive = idx === activeIndex;
+            return (
+              <button
+                key={idx}
+                onClick={() => setActiveIndex(idx)}
+                className={`relative overflow-hidden transition-all duration-500 rounded-full h-1.5 ${isActive ? 'w-10 bg-white/10' : 'w-2 bg-white/20 hover:bg-white/40'}`}
+              >
+                {isActive && !isHovered && (
+                  <motion.div
+                    initial={{ x: '-100%' }}
+                    animate={{ x: '0%' }}
+                    transition={{ duration: 10, ease: "linear" }}
+                    className="absolute inset-0 bg-[#FF4438]"
+                  />
+                )}
+                {isActive && isHovered && (
+                  <div className="absolute inset-0 bg-[#FF4438]" />
+                )}
+              </button>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -211,8 +237,27 @@ const Features: React.FC = () => {
 };
 
 const FeatureCard: React.FC<{ feature: any; isActive: boolean }> = ({ feature, isActive }) => {
+  const { t } = useLanguage();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isVideoReady, setIsVideoReady] = useState(false);
+  const [showDescription, setShowDescription] = useState(false);
+  const [rotate, setRotate] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isActive) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+    setRotate({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    setRotate({ x: 0, y: 0 });
+  };
 
   useEffect(() => {
     if (isActive && feature.video && videoRef.current) {
@@ -221,24 +266,38 @@ const FeatureCard: React.FC<{ feature: any; isActive: boolean }> = ({ feature, i
     } else if (videoRef.current) {
       videoRef.current.pause();
     }
+    // Collapse description when card becomes inactive
+    if (!isActive) {
+      setShowDescription(false);
+    }
   }, [isActive, feature.video]);
 
   return (
-    <div className={`relative w-[280px] md:w-[320px] h-[480px] md:h-[540px] rounded-[30px] overflow-hidden group border border-white/10 select-none bg-[#111] shadow-2xl transition-shadow duration-500 ${isActive ? 'shadow-[#FF4438]/20' : ''}`}>
-      {/* Background Image */}
-      <img
-        src={feature.image}
-        alt={feature.title}
-        className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isActive && isVideoReady ? 'opacity-0 scale-110' : 'opacity-80 scale-100'}`}
-        draggable={false}
-      />
-
-      {/* Video Layer */}
-      {feature.video && (
+    <motion.div
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      animate={{
+        rotateX: rotate.x,
+        rotateY: rotate.y,
+        scale: isActive ? 1.05 : 1,
+      }}
+      transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      className={`relative w-[280px] md:w-[256px] h-[480px] md:h-[432px] rounded-[30px] overflow-hidden group border border-white/10 select-none bg-[#111] shadow-2xl transition-all duration-500 ${isActive ? 'shadow-[#FF4438]/30 border-[#FF4438]/30' : 'grayscale-[0.5]'}`}
+      style={{ transformStyle: 'preserve-3d' }}
+    >
+      {/* Background Media */}
+      {!feature.video ? (
+        <img
+          src={feature.image}
+          alt={feature.title}
+          className="absolute inset-0 w-full h-full object-cover opacity-80 scale-100 transition-all duration-1000"
+          draggable={false}
+        />
+      ) : (
         <video
           ref={videoRef}
           src={feature.video}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isActive && isVideoReady ? 'opacity-100' : 'opacity-0'}`}
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${isActive && isVideoReady ? 'opacity-100' : 'opacity-40'}`}
           muted
           loop
           playsInline
@@ -247,32 +306,65 @@ const FeatureCard: React.FC<{ feature: any; isActive: boolean }> = ({ feature, i
         />
       )}
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent pointer-events-none"></div>
+      {/* Gradient Overlay - Dark gradient at bottom only */}
+      <div className={`absolute bottom-0 left-0 right-0 h-[60%] bg-gradient-to-t from-black via-black/80 to-transparent pointer-events-none transition-opacity duration-500 ${showDescription ? 'opacity-100' : 'opacity-90'}`}></div>
 
       {/* Glow Effect on Active Card */}
       {isActive && (
-        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF4438]/10 via-transparent to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-tr from-[#FF4438]/20 via-transparent to-transparent pointer-events-none"></div>
       )}
 
-      {/* Content */}
-      <div className={`absolute inset-0 p-6 md:p-8 flex flex-col justify-end transition-all duration-700 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'}`}>
-        <div className="flex items-center gap-2 mb-2 md:mb-3">
-          <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-[#FF4438] flex items-center justify-center text-white shadow-xl shrink-0">
+      {/* Content - Constrained to bottom */}
+      <div
+        className={`absolute inset-x-0 bottom-0 p-5 md:p-6 flex flex-col justify-end transition-all duration-700 ${isActive ? 'opacity-100 translate-y-0' : 'opacity-40 translate-y-4'}`}
+        style={{ transform: 'translateZ(50px)' }}
+      >
+        <div className="flex items-center gap-2 mb-1">
+          <div className="w-7 h-7 md:w-8 md:h-8 rounded-full bg-[#FF4438] flex items-center justify-center text-white shadow-xl shrink-0">
             {feature.icon}
           </div>
-          <span className="text-[#FF4438] font-bold text-xs md:text-sm uppercase tracking-[0.2em]">{feature.subtitle}</span>
+          <span className="text-[#FF4438] font-bold text-[10px] md:text-xs uppercase tracking-[0.2em]">{feature.subtitle}</span>
         </div>
 
-        <h4 className="text-2xl md:text-3xl font-black text-white mb-2 md:mb-3 leading-none uppercase italic tracking-tighter">
+        <h4 className="text-xl md:text-2xl font-black text-white mb-1 leading-none uppercase italic tracking-tighter">
           {feature.title}
         </h4>
 
-        <p className="text-gray-300 text-sm md:text-base leading-relaxed font-light">
-          {feature.description}
-        </p>
+        {/* View More Button */}
+        {isActive && (
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setShowDescription(!showDescription);
+            }}
+            className="flex items-center gap-1 text-white/70 hover:text-white text-[10px] md:text-xs uppercase tracking-widest font-bold mt-1 group/btn w-fit"
+          >
+            {showDescription ? t('features.viewLess') : t('features.viewMore')}
+            <motion.span
+              animate={{ rotate: showDescription ? 180 : 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <ChevronDown size={14} />
+            </motion.span>
+          </button>
+        )}
+
+        <AnimatePresence>
+          {showDescription && (
+            <motion.div
+              initial={{ height: 0, opacity: 0 }}
+              animate={{ height: 'auto', opacity: 1 }}
+              exit={{ height: 0, opacity: 0 }}
+              className="overflow-hidden"
+            >
+              <p className="text-gray-300 text-xs md:text-sm pt-2 pb-1 leading-relaxed font-light">
+                {feature.description}
+              </p>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

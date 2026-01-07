@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Clock, MapPin, CheckCircle, ArrowRight } from 'lucide-react';
 import MedicUnavailableModal from './MedicUnavailableModal';
-import motomedic from './Assets/Features/motomedicsquad.png';
+import motomedic from './Assets/genuinepart.png';
 import { useLanguage } from '../context/LanguageContext';
 
 const MotoMedic: React.FC = () => {
@@ -72,6 +72,7 @@ const MotoMedic: React.FC = () => {
                         </div>
 
                         <button
+                            id="book-medic-btn"
                             onClick={() => setShowModal(true)}
                             className="mt-12 bg-[#FF4438] text-white px-8 py-4 rounded-full font-bold hover:bg-red-600 transition-all flex items-center gap-2 group uppercase tracking-wider text-sm shadow-[0_0_20px_rgba(255,68,56,0.3)] hover:shadow-[0_0_30px_rgba(255,68,56,0.5)]"
                         >

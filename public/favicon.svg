@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Logomark" xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 1080 1080">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ed1c24;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: #231f20;
+        stroke: #231f20;
+        stroke-miterlimit: 10;
+      }
+    </style>
+  </defs>
+  <circle class="cls-1" cx="540" cy="540" r="442.4968"/>
+  <g>
+    <polygon class="cls-2" points="540 157.9117 572.6341 374.6094 902.4882 433.0235 506.3311 433.0235 540 157.9117"/>
+    <polygon class="cls-3" points="177.5118 446.3131 505.9348 504.7272 539.2941 917.7979 572.2377 446.3131 177.5118 446.3131"/>
+  </g>
+</svg>

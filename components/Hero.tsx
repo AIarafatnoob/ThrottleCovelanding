@@ -1,9 +1,45 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Facebook, Instagram, Youtube } from 'lucide-react';
+import { Facebook, Instagram, Youtube, Mail, Music2 } from 'lucide-react';
+import { useState } from 'react';
 import GarageDoorCta from './GarageDoorCta';
-import heroimg from './Assets/Garage.jpg';
+import heroimg from './Assets/Garagev2.png';
 import { useLanguage } from '../context/LanguageContext';
+
+const GmailReveal = () => {
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  return (
+    <div
+      className="relative flex items-center justify-center h-5"
+      onMouseEnter={() => setIsRevealed(true)}
+      onMouseLeave={() => setIsRevealed(false)}
+      onClick={() => setIsRevealed(!isRevealed)}
+    >
+      <motion.div
+        initial={false}
+        animate={{ width: isRevealed ? 'auto' : 20, opacity: 1 }}
+        className="overflow-hidden flex items-center bg-black/50 rounded-full"
+      >
+        <a
+          href="mailto:Throttlecove@gmail.com"
+          className={`flex items-center text-white/40 hover:text-[#FF4438] transition-colors duration-300 ${isRevealed ? 'pr-3 pl-2 py-1' : ''}`}
+        >
+          <Mail size={18} className="flex-shrink-0" />
+          {isRevealed && (
+            <motion.span
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: 'auto' }}
+              className="ml-2 text-[10px] font-medium whitespace-nowrap text-white"
+            >
+              Throttlecove@gmail.com
+            </motion.span>
+          )}
+        </a>
+      </motion.div>
+    </div>
+  );
+};
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
@@ -12,7 +48,7 @@ const Hero: React.FC = () => {
     <section className="relative min-h-screen flex items-center overflow-hidden bg-black">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent z-10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent z-10"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-black/40 z-10"></div>
         <img
           src={heroimg}
@@ -45,10 +81,12 @@ const Hero: React.FC = () => {
 
               <div className="flex flex-col sm:flex-row gap-6 items-center sm:items-stretch">
 
-                <GarageDoorCta
-                  className="w-full max-w-[300px] h-14"
-                  enableScrollClose={true}
-                />
+                <div id="hero-cta-container" className="w-full max-w-[300px]">
+                  <GarageDoorCta
+                    className="w-full h-14"
+                    enableScrollClose={true}
+                  />
+                </div>
 
                 <button className="h-14 px-4 rounded-full font-bold text-white border border-white/20 hover:bg-white/10 transition-all backdrop-blur-sm flex items-center justify-center gap-3 uppercase tracking-wide text-xs w-[150px]">
                   {t('hero.viewDemo')}
@@ -77,6 +115,8 @@ const Hero: React.FC = () => {
             <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
           </svg>
         </a>
+        <a href="#" className="text-white/40 hover:text-[#FF4438] transition-all duration-300 transform hover:scale-110"><Music2 size={18} /></a>
+        <GmailReveal />
       </motion.div>
 
       {/* Mobile Socials - Center Bottom */}
@@ -95,6 +135,12 @@ const Hero: React.FC = () => {
             <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
           </svg>
         </a>
+        <a href="#" className="text-white/40 hover:text-[#FF4438] transition-all transform hover:scale-110"><Music2 size={20} /></a>
+        <div className="flex items-center justify-center">
+          <a href="mailto:Throttlecove@gmail.com" className="text-white/40 hover:text-[#FF4438] transition-all transform hover:scale-110">
+            <Mail size={20} />
+          </a>
+        </div>
       </motion.div>
     </section>
   );

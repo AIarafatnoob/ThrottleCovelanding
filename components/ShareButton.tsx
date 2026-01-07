@@ -15,12 +15,18 @@ const ShareButton: React.FC<ShareButtonProps> = ({ isFloating = true, className 
 
     useEffect(() => {
         // Initialize or retrieve referral ID
-        let storedId = localStorage.getItem('tc_ref_id');
-        if (!storedId) {
-            storedId = Math.random().toString(36).substring(2, 9).toUpperCase();
-            localStorage.setItem('tc_ref_id', storedId);
+        try {
+            let storedId = localStorage.getItem('tc_ref_id');
+            if (!storedId) {
+                storedId = Math.random().toString(36).substring(2, 9).toUpperCase();
+                localStorage.setItem('tc_ref_id', storedId);
+            }
+            setReferralId(storedId);
+        } catch (error) {
+            console.error('Storage access denied:', error);
+            // Fallback ID if storage is blocked
+            setReferralId('THROTTLE');
         }
-        setReferralId(storedId);
     }, []);
 
     const handleShare = async () => {
@@ -33,20 +39,31 @@ const ShareButton: React.FC<ShareButtonProps> = ({ isFloating = true, className 
                     text: 'Join the first comprehensive digital garage for Bangladesh!',
                     url: shareUrl,
                 });
-            } else {
+            } else if (navigator.clipboard && navigator.clipboard.writeText) {
                 await navigator.clipboard.writeText(shareUrl);
                 setIsCopied(true);
                 setTimeout(() => setIsCopied(false), 2000);
+            } else {
+                // Fallback for non-secure contexts (HTTP) or unsupported browsers
+                const tempInput = document.createElement('input');
+                tempInput.value = shareUrl;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                const successful = document.execCommand('copy');
+                document.body.removeChild(tempInput);
+
+                if (successful) {
+                    setIsCopied(true);
+                    setTimeout(() => setIsCopied(false), 2000);
+                } else {
+                    // Final fallback: just alert or show a prompt
+                    window.prompt('Copy this link to share:', shareUrl);
+                }
             }
         } catch (error) {
             console.error('Error sharing:', error);
-            try {
-                await navigator.clipboard.writeText(shareUrl);
-                setIsCopied(true);
-                setTimeout(() => setIsCopied(false), 2000);
-            } catch (clipError) {
-                console.error('Clipboard error:', clipError);
-            }
+            // Fallback prompt if clipboard fails
+            window.prompt('Copy this link to share:', shareUrl);
         }
     };
 
@@ -61,9 +78,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({ isFloating = true, className 
             <div className="absolute inset-0 bg-gradient-to-tr from-white/0 via-white/30 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
 
             {isCopied ? (
-                <Check size={20} className="text-white relative z-10 md:w-6 md:h-6" />
+                <Check size={16} className="text-white relative z-10" />
             ) : (
-                <Share2 size={20} className="text-white relative z-10 md:w-6 md:h-6" />
+                <Share2 size={16} className="text-white relative z-10" />
             )}
         </motion.button>
     );

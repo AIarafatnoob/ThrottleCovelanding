@@ -5,24 +5,44 @@ import { useLanguage } from '../context/LanguageContext';
 import { Languages } from 'lucide-react';
 
 const Navbar: React.FC = () => {
-  const [scrolled, setScrolled] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
   const { language, setLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+
+      // Always show at the top
+      if (currentScrollY < 50) {
+        setIsVisible(true);
+        setLastScrollY(currentScrollY);
+        return;
+      }
+
+      const diff = currentScrollY - lastScrollY;
+
+      // Asymmetric thresholds: Hide quickly (50px), show slowly (100px)
+      if (diff > 50) {
+        setIsVisible(false);
+        setLastScrollY(currentScrollY);
+      } else if (diff < -100) {
+        setIsVisible(true);
+        setLastScrollY(currentScrollY);
+      }
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [lastScrollY]);
 
   const toggleLanguage = () => {
     setLanguage(language === 'en' ? 'bn' : 'en');
   };
 
   return (
-    <nav className={`fixed top-6 left-0 right-0 z-50 transition-all duration-300 flex justify-center px-4`}>
-      <div className="bg-[#111111] text-white rounded-full px-8 shadow-2xl border border-white/10 w-full max-w-7xl flex items-center justify-between backdrop-blur-md bg-opacity-95 relative h-[46px] md:h-[62px]">
+    <nav className={`fixed top-6 left-0 right-0 z-50 transition-transform duration-500 ease-in-out flex justify-center px-4 ${isVisible ? 'translate-y-0' : '-translate-y-32'}`}>
+      <div className="bg-[#111111] text-white rounded-full px-8 shadow-2xl border border-white/10 w-full max-w-7xl flex items-center justify-between backdrop-blur-md bg-opacity-60 relative h-[46px] md:h-[62px]">
 
         <div className="flex-1"></div>
 

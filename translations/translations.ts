@@ -3,12 +3,12 @@ export type Language = 'en' | 'bn';
 export const translations = {
     en: {
         hero: {
-            title: "YOUR DIGITAL",
+            title: "YOUR POCKET",
             garage: "GARAGE",
             description: "Command the road. Master your maintenance, ride with legends, and treat your machine like royalty.",
             throttleUp: "THROTTLE UP.",
             viewDemo: "View Demo",
-            connect: "Follow Us",
+            connect: "Our Socials",
         },
         cta: {
             openGarage: "Open Your Garage",
@@ -22,6 +22,8 @@ export const translations = {
             title: "Your Entire Garage",
             subtitle: "in Your Pocket.",
             swipe: "Swipe to navigate",
+            viewMore: "View More",
+            viewLess: "Show Less",
             items: {
                 vault: {
                     title: "One-Tap Vault",
@@ -72,8 +74,8 @@ export const translations = {
             description: "Why waste 3 hours in Dhaka traffic for an oil change? Our specialized rapid-response bikes bring expert mechanics to your office or home parking.",
             genuine: "100% Genuine",
             genuineDesc: "We bring sealed oil bottles. You check the seal before we pour.",
-            officeService: "Office Hours Service",
-            officeServiceDesc: "We service your bike in the parking lot while you work.",
+            officeService: "Home Service",
+            officeServiceDesc: "We service your bike while you do more important things.",
             dhakaService: "Anywhere in Dhaka",
             dhakaServiceDesc: "From Gulshan to Dhanmondi, our Moto-Medics cut through traffic.",
             bookBtn: "Book a Medic (Beta)"
@@ -86,6 +88,15 @@ export const translations = {
             successTitle: "You're on the list!",
             successDesc: "We'll notify you as soon as a spot opens up.",
             priority: "We'll prioritize your request when we expand."
+        },
+        thankYouModal: {
+            title: "Thank You!",
+            message: "We've received your email. We will get in touch with you as soon as our platform is ready. Thank you for your patience!",
+            betaPrompt: "Would you like to take part in our Beta Program?",
+            yes: "Yes, count me in!",
+            no: "No, thanks",
+            betaSuccessTitle: "You're in line!",
+            betaSuccessMessage: "You are now in line for the beta program. We'll be in touch."
         },
         footer: {
             description: "The first comprehensive digital garage for Bangladesh. Secure documents, genuine parts, and community safety.",
@@ -122,12 +133,12 @@ export const translations = {
     },
     bn: {
         hero: {
-            title: "আপনার ডিজিটাল",
+            title: "আপনার পকেট",
             garage: "গ্যারেজ",
             description: "রাস্তা শাসন করুন। আপনার রক্ষণাবেক্ষণে দক্ষ হন, কিংবদন্তিদের সাথে রাইড করুন এবং আপনার মেশিনকে রাজকীয় মর্যাদা দিন।",
             throttleUp: "থ্রটল আপ।",
             viewDemo: "ডেমো দেখুন",
-            connect: "আমাদের সাথে থাকুন",
+            connect: "আমাদের সোশ্যালস",
         },
         cta: {
             openGarage: "আপনার গ্যারেজ খুলুন",
@@ -141,6 +152,8 @@ export const translations = {
             title: "আপনার পুরো গ্যারেজ",
             subtitle: "আপনার পকেটে।",
             swipe: "নেভিগেট করতে সোয়াইপ করুন",
+            viewMore: "আরও দেখুন",
+            viewLess: "কম দেখুন",
             items: {
                 vault: {
                     title: "ওয়ান-ট্যাপ ভল্ট",
@@ -191,8 +204,8 @@ export const translations = {
             description: "ঢাকা ট্রাফিকে অয়েল চেঞ্জের জন্য ৩ ঘণ্টা নষ্ট করবেন কেন? আমাদের বিশেষায়িত র‍্যাপিড-রেসপন্স বাইক আপনার অফিস বা বাসার পার্কিংয়ে দক্ষ মেকানিক নিয়ে আসবে।",
             genuine: "১০০% জেনুইন",
             genuineDesc: "আমরা সিল করা তেলের বোতল নিয়ে আসি। আমরা ঢালার আগে আপনি সিল পরীক্ষা করেন।",
-            officeService: "অফিস আওয়ার সার্ভিস",
-            officeServiceDesc: "আপনি যখন কাজ করেন তখন আমরা পার্কিং লটে আপনার বাইক সার্ভিসের কাজ শেষ করি।",
+            officeService: "হোম সার্ভিস",
+            officeServiceDesc: "আপনি যখন জরুরি কাজে ব্যস্ত থাকেন, তখন আমরা আপনার বাইক সার্ভিস করি।",
             dhakaService: "ঢাকার যেকোনো স্থানে",
             dhakaServiceDesc: "গুলশান থেকে ধানমন্ডি, আমাদের মোটো-মেডিকরা ট্রাফিক কেটে পৌঁছে যাবে আপনার কাছে।",
             bookBtn: "একটি মেডিক বুক করুন (বেটা)"
@@ -205,6 +218,15 @@ export const translations = {
             successTitle: "আপনি তালিকায় আছেন!",
             successDesc: "সুযোগ তৈরি হওয়ার সাথে সাথেই আমরা আপনাকে জানাবো।",
             priority: "সেবা সম্প্রসারণের সময় আমরা আপনার অনুরোধটিকে অগ্রাধিকার দেব।"
+        },
+        thankYouModal: {
+            title: "ধন্যবাদ!",
+            message: "আমরা আপনার ইমেল পেয়েছি। আমাদের প্ল্যাটফর্ম প্রস্তুত হওয়ার সাথে সাথেই আমরা আপনার সাথে যোগাযোগ করব। আপনার ধৈর্যের জন্য ধন্যবাদ!",
+            betaPrompt: "আপনি কি আমাদের বেটা প্রোগ্রামে অংশ নিতে চান?",
+            yes: "হ্যাঁ, আমি চাই!",
+            no: "না, ধন্যবাদ",
+            betaSuccessTitle: "আপনি লাইনে আছেন!",
+            betaSuccessMessage: "আপনি এখন বেটা প্রোগ্রামের জন্য লাইনে আছেন। আমরা যোগাযোগ করব।"
         },
         footer: {
             description: "বাংলাদেশের জন্য প্রথম পূর্ণাঙ্গ ডিজিটাল গ্যারেজ। সুরক্ষিত কাগজপত্র, আসল পার্টস এবং কমিউনিটি নিরাপত্তা।",
